@@ -1,5 +1,6 @@
 package com.github.arocketman.config;
 
+import javax.activation.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,7 +26,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    /**
+    @Autowired
+    javax.sql.DataSource dataSource;
+   /**
      * Setting up the endpointsconfigurer authentication manager.
      * The AuthorizationServerEndpointsConfigurer defines the authorization and token endpoints and the token services.
      * @param endpoints
@@ -45,7 +48,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients
+//.jdbc(dataSource).passwordEncoder(passwordEncoder);
                 .inMemory()
+               
                 .withClient("my-trusted-client")
                 .authorizedGrantTypes("client_credentials", "password")
                 .authorities("ROLE_CLIENT","ROLE_TRUSTED_CLIENT")

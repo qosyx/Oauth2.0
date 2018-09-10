@@ -4,6 +4,11 @@ spring:
 security:
     user:
       password: password
+      username: myuser
+      
     oauth2:
       resource:
         filter-order: 3
+      user:
+        password: password
+        username: myuser
